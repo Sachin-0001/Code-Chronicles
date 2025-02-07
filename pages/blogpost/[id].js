@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
-import dbConnect from '../../../utils/dbConnect';
-import Blog from '../../../models/Blog';
+import dbConnect from '../../utils/dbConnect';
+import Blog from '../../models/Blog';
 
 export async function getServerSideProps({ params }) {
   const { id } = params;
