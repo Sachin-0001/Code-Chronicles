@@ -1,18 +1,18 @@
-// pages/api/getLatestBlogs.js
-import dbConnect from "../../utils/dbConnect";
-import Blog from "../../models/Blog";
+import dbConnect from "@/utils/dbConnect";
+import Blog from "@/models/Blog";
 
 export default async function handler(req, res) {
   await dbConnect();
 
   try {
-    const latestBlogs = await Blog.find({})
-      .sort({ createdAt: -1 }) // Sort by creation date in descending order
-      .limit(3); // Limit to 3 latest blogs
+    const blogs = await Blog.find({})
+      .sort({ createdAt: -1 })  // Index on `createdAt` can speed up sorting
+      .limit(10)  // Limit results for faster response
+      .select("title author createdAt");  // Only return necessary fields
 
-    return res.status(200).json(latestBlogs);
+    res.status(200).json(blogs);
   } catch (error) {
     console.error("Error fetching blogs:", error);
-    return res.status(500).json({ error: "Error fetching latest blogs" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }

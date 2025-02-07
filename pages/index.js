@@ -51,7 +51,7 @@ export default function Home() {
                 >
                   <h3 className="text-xl font-semibold text-white">{blog.title}</h3>
                   <p className="text-gray-400 mt-2">
-                    {blog.content.slice(0, 100)}...
+                    {blog.content}...
                   </p>
                   <p className="text-gray-500 text-sm mt-2 text-right">
                     Author: {blog.author || "Unknown"}
