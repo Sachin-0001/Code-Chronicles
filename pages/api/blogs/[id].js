@@ -1,6 +1,6 @@
 // pages/api/blogs/[id].js
-import dbConnect from '../../utils/dbConnect';
-import Blog from '../../models/Blog';
+import dbConnect from '../../../utils/dbConnect';
+import Blog from '../../../models/Blog';
 
 export default async function handler(req, res) {
   const { id } = req.query;
