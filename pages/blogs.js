@@ -5,7 +5,7 @@ const blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const app_url = process.env.APP_URL || 'http://localhost:3000';
+  const app_url = process.env.APP_URL || 'https://codechronicles-dev.netlify.app';
   useEffect(() => {
     const fetchBlogs = async () => {
       try {

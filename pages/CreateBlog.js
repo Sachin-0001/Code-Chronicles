@@ -17,7 +17,7 @@ const CreateBlog = () => {
       author,
       date,
     };
-    const app_url = process.env.APP_URL || 'http://localhost:3000';
+    const app_url = process.env.APP_URL || 'https://codechronicles-dev.netlify.app';
     console.log(blogData);
     try {
       const response = await fetch(`${app_url}/api/createBlog`, {
