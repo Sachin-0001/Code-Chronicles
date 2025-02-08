@@ -4,11 +4,11 @@ import Link from "next/link";
 
 export default function Home() {
   const [latestBlogs, setLatestBlogs] = useState([]);
-
+  const app_url = process.env.APP_URL || 'http://localhost:3000';
   useEffect(() => {
     const fetchLatestBlogs = async () => {
       try {
-        const response = await fetch("/api/getLatestBlogs");
+        const response = await fetch(`${app_url}/api/getLatestBlogs`);
         const data = await response.json();
         if (response.ok) {
           setLatestBlogs(data); // Set the blogs data into state

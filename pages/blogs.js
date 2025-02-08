@@ -5,11 +5,12 @@ const blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const app_url = process.env.APP_URL || 'http://localhost:3000';
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("/api/blogs");
+        console.log(`${app_url}/api/blogs`);
+        const res = await fetch(`${app_url}/api/blogs`);
         const data = await res.json();
 
         // Check if the response data is an array

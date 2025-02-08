@@ -17,9 +17,10 @@ const CreateBlog = () => {
       author,
       date,
     };
+    const app_url = process.env.APP_URL || 'http://localhost:3000';
     console.log(blogData);
     try {
-      const response = await fetch("/api/createBlog", {
+      const response = await fetch(`${app_url}/api/createBlog`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
