@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   const [latestBlogs, setLatestBlogs] = useState([]);
-  const app_url = process.env.APP_URL || 'https://codechronicles-dev.netlify.app';
+  const app_url = process.env.APP_URL || 'https://code-chronicles-five.vercel.app';
   useEffect(() => {
     const fetchLatestBlogs = async () => {
       try {
