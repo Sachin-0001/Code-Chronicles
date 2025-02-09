@@ -17,10 +17,9 @@ const CreateBlog = () => {
       author,
       date,
     };
-    const app_url = process.env.APP_URL || 'https://code-chronicles-five.vercel.app/';
     console.log(blogData);
     try {
-      const response = await fetch(`${app_url}/api/createBlog`, {
+      const response = await fetch("/api/createBlog", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +44,7 @@ const CreateBlog = () => {
       <h1 className="text-3xl font-semibold text-center text-blue-400">Create a New Blog</h1>
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl mx-auto mt-8 p-6 bg-gray-800 rounded-lg shadow-md"
+        className="max-w-4xl mx-auto mt-8 p-6 bg-gray-900 rounded-lg shadow-md"
       >
         <div className="mb-4">
           <label htmlFor="title" className="block text-white font-semibold">

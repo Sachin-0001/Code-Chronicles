@@ -4,14 +4,13 @@ import Link from "next/link";
 
 export default function Home() {
   const [latestBlogs, setLatestBlogs] = useState([]);
-  const app_url = process.env.APP_URL || 'https://code-chronicles-five.vercel.app';
   useEffect(() => {
     const fetchLatestBlogs = async () => {
       try {
-        const response = await fetch(`${app_url}/api/getLatestBlogs`);
+        const response = await fetch("/api/getLatestBlogs");
         const data = await response.json();
         if (response.ok) {
-          setLatestBlogs(data); // Set the blogs data into state
+          setLatestBlogs(data); 
         } else {
           console.error("Failed to fetch blogs:", data.error);
         }
@@ -51,7 +50,7 @@ export default function Home() {
                 >
                   <h3 className="text-xl font-semibold text-white">{blog.title}</h3>
                   <p className="text-gray-400 mt-2">
-                    {blog.content}...
+                    {blog.content.slice(0,100)}...
                   </p>
                   <p className="text-gray-500 text-sm mt-2 text-right">
                     Author: {blog.author || "Unknown"}

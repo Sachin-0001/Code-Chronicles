@@ -5,12 +5,11 @@ const blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const app_url = process.env.APP_URL || 'https://code-chronicles-five.vercel.app';
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        console.log(`${app_url}/api/blogs`);
-        const res = await fetch(`${app_url}/api/blogs`);
+        console.log(`/api/blogs`);
+        const res = await fetch("/api/getLatestBlogs");
         const data = await res.json();
 
         // Check if the response data is an array

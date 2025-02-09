@@ -2,10 +2,7 @@ import dbConnect from "@/utils/dbConnect";
 import Blog from "@/models/Blog";
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
-  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+ 
 
   // Handle preflight requests
   if (req.method === "OPTIONS") {
@@ -16,10 +13,11 @@ export default async function handler(req, res) {
     await dbConnect();
 
     try {
+      await dbConnect();
       const blogs = await Blog.find({})
         .sort({ createdAt: -1 }) // Sort by latest
         .limit(10) // Limit results
-        .select("title author createdAt"); // Fetch only necessary fields
+        .select("title author createdAt content"); // Fetch only necessary fields
 
       return res.status(200).json(blogs);
     } catch (error) {

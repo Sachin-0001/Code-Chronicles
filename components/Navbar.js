@@ -10,11 +10,14 @@ const Navbar = () => {
           </h1>
         </Link>
         <div className="flex md:order-2 space-x-3">
-          <Link href="/CreateBlog">
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
-              Create Blog
-            </button>
+           <Link href="/login"> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+              Login
+          </button>
           </Link>
+          <Link href="/signUp"> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+              Signup
+          </button>
+            </Link>
         </div>
         <div className="hidden md:flex md:w-auto md:order-1">
           <ul className="flex space-x-6 text-gray-300">
@@ -34,8 +37,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-blue-400">
-                Contact
+              <Link href="/CreateBlog" className="hover:text-blue-400">
+                Create BLog
+              </Link>
+            </li>
+            <li>
+              <Link href="/feedback" className="hover:text-blue-400">
+                Feedback
               </Link>
             </li>
           </ul>
