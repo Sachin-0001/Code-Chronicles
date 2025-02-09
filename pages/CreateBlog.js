@@ -40,6 +40,7 @@ const CreateBlog = () => {
   };
 
   return (
+    <div className="bg-black min-h-screen p-12">
     <div className="container mx-auto mt-8">
       <h1 className="text-3xl font-semibold text-center text-blue-400">Create a New Blog</h1>
       <form
@@ -113,7 +114,8 @@ const CreateBlog = () => {
           Create Blog
         </button>
       </form>
-    </div>
+      </div>
+      </div>
   );
 };
 
