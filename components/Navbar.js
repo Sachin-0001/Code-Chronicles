@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { useAuth } from '../context/AuthContext';
+
 const Navbar = () => {
+  const { user, logout } = useAuth();
+
   return (
     <nav className="bg-black fixed w-full z-20 top-0 start-0 border-b border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -10,14 +14,27 @@ const Navbar = () => {
           </h1>
         </Link>
         <div className="flex md:order-2 space-x-3">
-           <Link href="/login"> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
-              Login
-          </button>
-          </Link>
-          <Link href="/signUp"> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
-              Signup
-          </button>
-            </Link>
+          {!user ? (
+            <>
+              <Link href="/login">
+                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+                  Login
+                </button>
+              </Link>
+              <Link href="/signUp">
+                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+                  Signup
+                </button>
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={logout}
+              className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-500 font-medium rounded-lg text-sm px-4 py-2"
+            >
+              Logout
+            </button>
+          )}
         </div>
         <div className="hidden md:flex md:w-auto md:order-1">
           <ul className="flex space-x-6 text-gray-300">
