@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../utils/firebase'; // Ensure this path is correct
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useRouter } from 'next/router';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleEmailSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -24,6 +24,18 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log('User signed in:', result.user);
+      router.push('/');
+    } catch (error) {
+      console.error('Error during sign-in:', error);
+      setError(error.message);
+    }
+  };
+
   return (
     <div>
       <section className="bg-black">
@@ -34,7 +46,7 @@ const Login = () => {
                 Login to your account
               </h1>
               {error && <p className="text-red-500">{error}</p>}
-              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+              <form className="space-y-4 md:space-y-6" onSubmit={handleEmailSignIn}>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                   <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
@@ -56,6 +68,9 @@ const Login = () => {
                 </div>
                 <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2" disabled={loading}>
                   {loading ? 'Loading...' : 'Sign in'}
+                </button>
+                <button onClick={handleGoogleSignIn} className="w-full mt-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-500 font-medium rounded-lg text-sm px-4 py-2">
+                  Sign in with Google
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don't have an account yet? <a href="/signUp" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../utils/firebase'; // Ensure this path is correct
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useRouter } from 'next/router';
 
 const SignUp = () => {
@@ -11,7 +11,7 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleEmailSignUp = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -29,6 +29,18 @@ const SignUp = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log('User signed in:', result.user);
+      router.push('/');
+    } catch (error) {
+      console.error('Error during sign-in:', error);
+      setError(error.message);
+    }
+  };
+
   return (
     <section className="bg-black">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -38,7 +50,7 @@ const SignUp = () => {
               Create an account
             </h1>
             {error && <p className="text-red-500">{error}</p>}
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleEmailSignUp}>
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                 <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
@@ -62,10 +74,13 @@ const SignUp = () => {
               <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2" disabled={loading}>
                 {loading ? 'Creating account...' : 'Create an account'}
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Already have an account? <a href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
-              </p>
             </form>
+            <button onClick={handleGoogleSignIn} className="w-full mt-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-500 font-medium rounded-lg text-sm px-4 py-2">
+              Sign up with Google
+            </button>
+            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+              Already have an account? <a href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+            </p>
           </div>
         </div>
       </div>
