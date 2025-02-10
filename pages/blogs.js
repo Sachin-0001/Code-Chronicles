@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-
+import Loader from "@/components/Loader";
 const blogs = () => {
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -12,7 +12,6 @@ const blogs = () => {
         const res = await fetch("/api/getLatestBlogs");
         const data = await res.json();
 
-        // Check if the response data is an array
         if (Array.isArray(data)) {
           setBlogs(data);
         } else {
@@ -22,16 +21,17 @@ const blogs = () => {
         setError("Failed to fetch blogs.");
         console.error(err);
       } finally {
-        setLoading(false);
+        setisLoading(false);
       }
     };
 
     fetchBlogs();
   }, []);
 
-  if (loading) {
-    return <p className="text-whi">Loading blogs...</p>;
+  if (isLoading) {
+    return <Loader />;
   }
+
 
   if (error) {
     return <p>{error}</p>;

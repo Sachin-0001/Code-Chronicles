@@ -30,7 +30,7 @@ const CreateBlog = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Blog created:", data);
-        router.push("/blogs"); // Redirect to blogs list or home page
+        router.push("/blogs"); 
       } else {
         console.error("Failed to create blog");
       }

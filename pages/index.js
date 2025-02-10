@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-
+import Loader from "@/components/Loader";
 export default function Home() {
   const [latestBlogs, setLatestBlogs] = useState([]);
+  const [isLoading, setisLoading] = useState(true);
   useEffect(() => {
     const fetchLatestBlogs = async () => {
       try {
@@ -16,12 +17,17 @@ export default function Home() {
         }
       } catch (error) {
         console.error("Error fetching latest blogs:", error);
+      } finally {
+        setisLoading(false);
       }
     };
 
     fetchLatestBlogs();
   }, []);
 
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <Head>

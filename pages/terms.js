@@ -1,8 +1,8 @@
 import React from 'react';
-
+import Link from 'next/link';
 const Terms = () => {
     return (
-      <div className="bg-black min-h-screen p-8">
+      <div className="bg-black min-h-screen">
     <div className="max-w-4xl mx-auto p-6 dark:bg-gray-900 dark:border-gray-700 shadow-lg rounded-lg mt-16">
       <h1 className="text-3xl text-blue-400 font-bold mb-4 text-center">Terms and Conditions</h1>
       <p className="text-white mb-4">
@@ -41,8 +41,20 @@ const Terms = () => {
       
       <p className="text-white mt-6">
         If you have any questions, please contact us at <a href="sachinsuresh.dsce@gmail.com" className="text-blue-500 underline">Mail Support</a>.
-      </p>
-            </div>
+          </p>
+          <div className="items-center justify-center mt-7 flex md:order-2 space-x-10">
+           <Link href="/login"> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+              Login
+          </button>
+
+          </Link>
+          <Link href="/signUp"> <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+              Signup
+          </button>
+            </Link>
+        </div>
+        </div>
+        
         </div>
         
   );
