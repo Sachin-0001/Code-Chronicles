@@ -6,7 +6,7 @@ const Footer = () => {
           <div className="bg-black">
       <hr className=" border-gray-200 black sm:mx-auto dark:border-gray-700 " />
       <span className="block text-sm bg-black text-gray-500 sm:text-center dark:text-gray-400">
-        © 2023{" "}
+        © 2025{" "}
         <a href="/index" className="hover:underline">
           Code Chronicles™
         </a>
