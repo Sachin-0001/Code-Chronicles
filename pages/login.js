@@ -29,7 +29,10 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log('User signed in:', result.user);
-      router.push('/');
+      router.push({
+        pathname: '/',
+        query: { name: result.user.displayName }
+      });
     } catch (error) {
       console.error('Error during sign-in:', error);
       setError(error.message);

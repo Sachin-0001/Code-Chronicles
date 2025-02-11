@@ -1,9 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const router = useRouter();
+
+  const handleCreateBlogNavigationS = () => {
+    const userName = localStorage.getItem('userName'); // Retrieve the name from local storage
+    router.push({
+      pathname: '/CreateBlog',
+      query: { name: userName } // Pass the name as a query parameter
+    });
+  };
 
   return (
     <nav className="bg-black fixed w-full z-20 top-0 start-0 border-b border-gray-700">
@@ -54,8 +64,16 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/CreateBlog" className="hover:text-blue-400">
-                Create BLog
+              <button
+                onClick={handleCreateBlogNavigationS}
+                className="hover:text-blue-400 text-white"
+              >
+                Create Blog
+              </button>
+            </li>
+            <li>
+              <Link href="/userBlogs" className="hover:text-blue-400">
+                My BLogs
               </Link>
             </li>
             <li>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 const contact = () => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(localStorage.getItem('userName'));
   const [email, setEmail] = useState("");
   const [feedback, setFeedback] = useState("");
   const [rating, setRating] = useState("");

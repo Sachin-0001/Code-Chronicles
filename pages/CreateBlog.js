@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const CreateBlog = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [date, setDate] = useState(new Date().toLocaleString());
-  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.name) {
+      setAuthor(router.query.name); // Set author from query parameter
+    }
+  }, [router.query.name]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +21,7 @@ const CreateBlog = () => {
       title,
       content,
       author,
-      date,
+      date
     };
     console.log(blogData);
     try {
@@ -87,9 +93,8 @@ const CreateBlog = () => {
               id="author"
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
-              required
+              disabled // Ensure the field is disabled
               className="w-full p-2 mt-2 bg-gray-700 text-white border border-gray-600 rounded-lg"
-              placeholder="Enter author name"
             />
           </div>
           <div className="w-1/2 pl-2">
