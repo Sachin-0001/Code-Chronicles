@@ -8,10 +8,9 @@ const Navbar = () => {
   const router = useRouter();
 
   const handleCreateBlogNavigationS = () => {
-    const userName = localStorage.getItem('userName'); // Retrieve the name from local storage
     router.push({
       pathname: '/CreateBlog',
-      query: { name: userName } // Pass the name as a query parameter
+      query: { name: router.query.name } 
     });
   };
 
