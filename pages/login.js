@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 const Login = () => {
   const router = useRouter();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,6 +21,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Login successful");
+      localStorage.setItem('userName', name);
       router.push("/blogs");
     } catch (error) {
       setError(error.message);
@@ -32,11 +34,13 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
+      const user = result.user;
       console.log("User signed in:", result.user);
       router.push({
         pathname: "/blogs",
         query: { name: result.user.displayName },
       });
+      localStorage.setItem('userName', user.displayName);
     } catch (error) {
       console.error("Error during sign-in:", error);
       setError(error.message);
