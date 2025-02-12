@@ -23,7 +23,7 @@ const SignUp = () => {
             await createUserWithEmailAndPassword(auth, email, password);
             console.log('Signup successful');
             localStorage.setItem('userName', name);
-            router.push('/');
+            router.push('/blogs');
         } catch (error) {
             setError(error.message);
         } finally {
@@ -38,7 +38,7 @@ const SignUp = () => {
             const user = result.user;
             console.log('User signed in:', user);
             router.push({
-                pathname: '/',
+                pathname: '/blogs',
                 query: { name: user.displayName }
             });
           localStorage.setItem('userName', user.displayName);

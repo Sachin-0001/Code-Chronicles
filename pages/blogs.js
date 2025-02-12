@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Loader from "@/components/Loader";
-const blogs = () => {
+import { useRouter } from 'next/router';
+
+const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const userName = localStorage.getItem('userName');  
+
+  const handleCreateBlogNavigationS = () => {
+    router.push({
+      pathname: '/CreateBlog',
+      query: { name: userName } 
+    });
+  };
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -21,7 +33,7 @@ const blogs = () => {
         setError("Failed to fetch blogs.");
         console.error(err);
       } finally {
-        setisLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -32,14 +44,13 @@ const blogs = () => {
     return <Loader />;
   }
 
-
   if (error) {
     return <p>{error}</p>;
   }
 
   return (
     <>
-      <div className="bg-black mt-24">
+      {/* <div className="bg-black mt-24">
         <form className="flex items-center max-w-lg mx-auto bg-black p-2 rounded-lg shadow-md">
           <label htmlFor="search" className="sr-only">
             Find blogs
@@ -71,12 +82,30 @@ const blogs = () => {
             />
           </div>
         </form>
-      </div>
+      </div> */}
 
-      <div className="bg-black min-h-screen pb-20 sm:p-20">
+      <div className="bg-black min-h-screen pb-20 sm:p-20 pt-24">
         <p className="text-3xl font-light text-blue-400 text-center">
           All Blogs
         </p>
+        <div className="flex justify-between mb-4">
+          <Link href="/CreateBlog">
+            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2" onClick={handleCreateBlogNavigationS}>
+              Create Blog
+            </button>
+          </Link>
+          <Link href="/userBlogs">
+            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2">
+              My Blogs
+            </button>
+          </Link>
+        </div>
+
+        {userName && (
+          <p className="text-center text-gray-400 mt-4">
+            Welcome, {userName}
+          </p>
+        )}
 
         {blogs.length === 0 ? (
           <p className="text-center text-gray-400 mt-4">No blogs found</p>
@@ -86,19 +115,21 @@ const blogs = () => {
               key={blog._id}
               className="bg-gray-900 rounded-lg p-6 mb-6 shadow-lg border border-gray-700 mt-10"
             >
-              <h3 className="text-xl font-semibold text-white">{blog.title}</h3>
-              <p className="text-gray-400 mt-2">{blog.content.slice(0,200)}..</p>
-              <p className="text-gray-500 text-sm mt-2 text-right">
+              <h3 className="text-xl font-semibold text-white text-left">{blog.title}</h3>
+              <p className="text-gray-400 mt-2 text-left">{blog.content.slice(0,200)}..</p>
+              <p className="text-gray-500 text-sm mt-2 text-left">
                 Author: {blog.author}
               </p>
-              <p className="text-gray-500 text-sm mt-2 text-right">
+              <p className="text-gray-500 text-sm mt-2 text-left">
                 Published: {blog.createdAt}
               </p>
-              <Link href={`/blogpost/${blog._id}`}>
-                <button className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
-                  Read More
-                </button>
-              </Link>
+              <div className="flex justify-start mt-4">
+                <Link href={`/blogpost/${blog._id}`}>
+                  <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
+                    Read More
+                  </button>
+                </Link>
+              </div>
             </div>
           ))
         )}
@@ -107,4 +138,4 @@ const blogs = () => {
   );
 };
 
-export default blogs;
+export default Blogs;

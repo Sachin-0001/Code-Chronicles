@@ -30,13 +30,14 @@ const UserBlogs = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen pb-20 sm:p-20 mt-10">
+    <div className="bg-black min-h-screen pb-20 sm:p-20 pt-24">
       <p className="text-3xl font-light text-blue-400 text-center">
         Your Blogs
       </p>
 
       {blogs.length === 0 ? (
-        <p className="text-center text-gray-400 mt-4">You haven't created any blogs yet.</p>
+        <p className="text-center text-gray-400 mt-4">You haven't created any blogs yet. Login to view your blogs</p>
+        
       ) : (
         blogs.map((blog) => (
           <div
