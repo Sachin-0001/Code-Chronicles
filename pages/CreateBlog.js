@@ -93,7 +93,6 @@ const CreateBlog = () => {
               id="author"
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
-              disabled // Ensure the field is disabled
               className="w-full p-2 mt-2 bg-gray-700 text-white border border-gray-600 rounded-lg"
             />
           </div>
