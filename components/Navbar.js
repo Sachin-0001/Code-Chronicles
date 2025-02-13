@@ -80,12 +80,7 @@ const Navbar = () => {
             <>
               <Link href="/login">
                 <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2" onClick={handleLinkClick}>
-                  Login
-                </button>
-              </Link>
-              <Link href="/signUp">
-                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-4 py-2" onClick={handleLinkClick}>
-                  Signup
+                  Get Started
                 </button>
               </Link>
             </>
