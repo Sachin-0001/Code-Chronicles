@@ -3,16 +3,13 @@ import Link from 'next/link';
 const UserBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const userName = localStorage.getItem('userName'); // Retrieve the user's name from local storage
-
+  const userName = localStorage.getItem('userName');
   useEffect(() => {
     const fetchUserBlogs = async () => {
       try {
-        // Fetch all blogs from your backend or database
-        const response = await fetch('/api/blogs'); // Adjust the endpoint as needed
+        const response = await fetch('/api/blogs'); 
         const allBlogs = await response.json();
 
-        // Filter blogs to only include those created by the current user
         const userBlogs = allBlogs.filter(blog => blog.author === userName);
         setBlogs(userBlogs);
       } catch (error) {
@@ -24,6 +21,22 @@ const UserBlogs = () => {
 
     fetchUserBlogs();
   }, [userName]);
+
+  const deleteBlog = async (id) => {
+    try {
+      const response = await fetch(`/api/deleteBlog?id=${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setBlogs(blogs.filter(blog => blog._id !== id)); // Update state to remove the deleted blog
+      } else {
+        console.error('Failed to delete the blog');
+      }
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+    }
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -53,7 +66,10 @@ const UserBlogs = () => {
                 <button className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
                   Read More
                 </button>
-              </Link>
+            </Link>
+            <button className="mt-4 mx-4 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg" onClick={() => deleteBlog(blog._id)}>
+                  Delete 
+                </button>
           </div>
         ))
       )}
